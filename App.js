@@ -1,16 +1,13 @@
 import React from 'react';
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Sharing from 'expo-sharing';
-import { Button } from 'react-native-web';
-import { useState } from 'react';
-export default function App() {
-const[name, setName] =useState('Earns');
 
+export default function App() {
   let [selectedImage, setSelectedImage] = React.useState(null);
 
   let openImagePickerAsync = async () => {
-    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
 
     if (permissionResult.granted === false) {
       alert('Permission to access camera roll is required!');
@@ -35,7 +32,6 @@ const[name, setName] =useState('Earns');
   };
 
   if (selectedImage !== null) {
-    
     return (
       <View style={styles.container}>
         <Image source={{ uri: selectedImage.localUri }} style={styles.thumbnail} />
@@ -45,73 +41,51 @@ const[name, setName] =useState('Earns');
       </View>
     );
   }
+
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../sharing/assets/image4.jpg')} style={{width: '100%', height: '100%'}}>
-      <Text style={styles.header}> 
-     Welcome to {name} Gallery.To pick & share an image click the button below.
+      <Image source={{ uri: 'https://i.imgur.com/TkIrScD.png' }} style={styles.logo} />
+      <Text style={styles.instructions}>
+        To share a photo from your phone with a friend, just press the button below!
       </Text>
+
       <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
         <Text style={styles.buttonText}>Pick a photo</Text>
       </TouchableOpacity>
-      <Text style={styles.body}> If you're looking for fine art, look no further.</Text>
-      </ImageBackground>
-      </View>
+    </View>
   );
-  }
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
+    alignItems: 'center',
     justifyContent: 'center',
-    alignContent: 'center',
-    margin:0,
   },
   logo: {
     width: 305,
     height: 159,
     marginBottom: 20,
   },
-  header: {
-    color: 'white',
-    fontSize: 20,
+  instructions: {
+    color: '#888',
+    fontSize: 18,
     marginHorizontal: 15,
     marginBottom: 10,
-    padding: 25,
-    lineHeight: 25,
   },
   button: {
     backgroundColor: 'white',
     padding: 20,
-    borderRadius: 15,
-    alignContent: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-    fontFamily: 'Arial',
+    borderRadius: 5,
   },
   buttonText: {
     fontSize: 20,
     color: 'black',
   },
   thumbnail: {
-    width: 400,
-    height: 480,
-    resizeMode: 'cover',
-    borderColor: 'red',
-    borderRadius: 15,
-    padding: 30,
-    marginBottom: 12,
-    marginRight: 50,
-    marginLeft: 8
-  },
-  body: {
-    padding: 20,
-    fontSize: 20,
-    color: 'white',
-  },
-  "splash": {
-    "image": "./assets/splash.png",
-    "resizeMode": "contain",
-    "backgroundColor": "#000000"
+    width: 300,
+    height: 300,
+    resizeMode: 'contain',
   },
 });
