@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   thumbnail: {
-    width: 400,
-    height: 400,
+    width: 355,
+    height: 340,
     resizeMode: 'contain',
   },
   text: {
