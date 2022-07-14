@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 400,
-    height: 200,
+    width: 320,
+    height: 250,
     marginBottom: 20,
     borderRaidus: 15,
     padding: 25,
@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   thumbnail: {
-    width: 355,
-    height: 340,
+    width: 400,
+    height: 400,
     resizeMode: 'contain',
   },
   text: {
