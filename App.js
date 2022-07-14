@@ -1,9 +1,13 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View, ImageBackground } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Sharing from 'expo-sharing';
+import { useState} from 'react'
 
-export default function App() {
+export default function App () {
+
+  const [ name, setName ] = useState ('Earns');
+
   let [selectedImage, setSelectedImage] = React.useState(null);
 
   let openImagePickerAsync = async () => {
@@ -31,28 +35,31 @@ export default function App() {
     await Sharing.shareAsync(selectedImage.localUri);
   };
 
+
   if (selectedImage !== null) {
     return (
-      <View style={styles.container}>
-        <Image source={{ uri: selectedImage.localUri }} style={styles.thumbnail} />
+      <ImageBackground source={require('../sharing/assets/image4.jpg')} style={styles.container}>
+        <Image source={{ uri: selectedImage.localUri }} style={styles.thumbnail}/>
         <TouchableOpacity onPress={openShareDialogAsync} style={styles.button}>
           <Text style={styles.buttonText}>Share this photo</Text>
         </TouchableOpacity>
-      </View>
+        <Text style={styles.text}> {name} Gallery wishes you a good day.</Text>
+      </ImageBackground>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: 'https://i.imgur.com/TkIrScD.png' }} style={styles.logo} />
+    <ImageBackground source={require('../sharing/assets/image4.jpg')} style={styles.container}>
+      <Image source={ require('../sharing/assets/moon.jpg')} style={styles.logo} />
+      <ImageBackground>
       <Text style={styles.instructions}>
-        To share a photo from your phone with a friend, just press the button below!
+        Welcome to {name} Gallery. To pick & share any photo stored here, click the button below.
       </Text>
-
+      </ImageBackground>
       <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
         <Text style={styles.buttonText}>Pick a photo</Text>
       </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 }
 
@@ -64,28 +71,40 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 305,
-    height: 159,
+    width: 400,
+    height: 200,
     marginBottom: 20,
+    borderRaidus: 15,
+    padding: 25,
   },
   instructions: {
-    color: '#888',
-    fontSize: 18,
+    color: 'white',
+    fontSize: 20,
     marginHorizontal: 15,
-    marginBottom: 10,
+    margin: 20 ,
+    letterSpacing: 1,
   },
   button: {
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     padding: 20,
-    borderRadius: 5,
+    borderRadius: 20,
+    marginBottom: 5,
   },
   buttonText: {
-    fontSize: 20,
-    color: 'black',
+    fontSize: 28,
+    fontWeight: '10',
+    color: 'white',
   },
   thumbnail: {
-    width: 300,
-    height: 300,
+    width: 400,
+    height: 400,
     resizeMode: 'contain',
+  },
+  text: {
+  fontSize: 28,
+  letterSpacing: 1,
+  color: 'white',
+  marginHorizontal: 16,
+  fontWeight: 'bold',
   },
 });
